@@ -1,6 +1,7 @@
 package be.chirozonhovencentrum.christmas.orderservices.services.customer;
 
 import be.chirozonhovencentrum.christmas.orderservices.exceptions.CustomerNotFoundException;
+import be.chirozonhovencentrum.christmas.orderservices.exceptions.InvalidException;
 import be.chirozonhovencentrum.christmas.orderservices.model.Customer;
 import be.chirozonhovencentrum.christmas.orderservices.repository.CustomerRepository;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -22,7 +23,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (emailValidator.isValid(customer.getEmailAddress())) {
             return customerRepository.save(customer);
         } else {
-            throw new RuntimeException();
+            throw new InvalidException("No valid e-mail address: " + customer.getEmailAddress());
         }
     }
 
